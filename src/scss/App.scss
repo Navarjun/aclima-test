@@ -1,0 +1,131 @@
+@import "../scss/vars.scss";
+
+.App {
+  display: flex;
+  flex-direction: row;
+
+  .shelves-bar-wrapper {
+    position: sticky;
+    top: 0px;
+    width: 16vw;
+    height: 100vh;
+    overflow: scroll;
+  }
+
+  .records-grid-wrapper {
+    width: 84vw;
+    min-height: 100vh;
+    background: $color-extra-light;
+
+    .search-bar-wrapper {
+      display: flex;
+      flex-direction: row;
+      margin: $padding-less;
+      padding: $padding-less;
+      label {
+        margin: auto;
+      }
+    }
+  }
+
+  .all-shelf-details {
+    width: auto;
+    background: white;
+    padding: $padding-less + $padding-base;
+    margin: $padding-base;
+    border-bottom: 1px solid $color-extra-light;
+    cursor: pointer;
+    &.selected {
+      border-left: 5px solid $color-light 
+    }
+    &:hover {
+        background: $color-extra-light;
+    }
+
+    .shelf-name {
+      font-weight: bold;
+      font-size: 1.3em;
+      color: $color-dark;
+      display: block;
+    }
+    .shelf-items-count {
+        font-weight: normal;
+        font-size: 0.8em;
+        color: $color-light;
+    }
+  }
+
+  .btn-div {
+    position: absolute;
+    bottom: 0px;
+    padding: $padding-double;
+    width: 100%;
+    box-sizing: border-box;
+
+    input {
+      box-sizing: border-box;
+      margin-bottom: $padding-less;
+    }
+  }
+  .form {
+    width: 100%;
+    padding: $padding-less;
+    border-radius: $padding-less;
+    font-size: 1em;
+    border: 1px solid $color-extra-light;
+  }
+  .btn {
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    color: white;
+    transition: all 0.3s;
+
+    &.btn-success {
+      background: $color-dark;
+      box-shadow: -2px 0px 5px $color-extra-dark;
+      &:hover {
+        box-shadow: -2px 0px 2px $color-extra-dark;
+      }
+    }
+
+    &.btn-fail {
+      background: $color-light;
+      box-shadow: -2px 0px 5px $color-extra-dark;
+      &:hover {
+        box-shadow: -2px 0px 2px $color-extra-dark;
+      }
+    }
+  }
+}
+
+
+.loading-wrapper {
+  width: 84vw;
+  min-height: 100vh;
+  background: $color-extra-light;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: $color-extra-light;
+
+  .loader {
+    border: 16px solid $color-extra-light;
+    border-top: 16px solid $color-light;
+    border-bottom: 16px solid $color-light;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: $color-light;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+}

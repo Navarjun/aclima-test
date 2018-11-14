@@ -1,0 +1,51 @@
+@import "./vars.scss";
+
+.record-item-container {
+    padding: $padding-less;
+
+    .record-item-img {
+        width: 100%;
+    }
+
+    .record-item-name {
+        font-size: 1.3em;
+        font-weight: bold;
+        width: 100%;
+        display: block;
+    }
+    .record-item-artists {
+        display: block;
+        color: $color-light;
+    }
+
+
+    &.dragging {
+        .record-item-img {
+            opacity: 0.3;
+        }
+        .record-item-name {
+            opacity: 0.3;
+        }
+        .record-item-artists {
+            opacity: 0.3;
+        }
+    }
+
+    .drag-item {
+        position: fixed;
+        z-index: 100;
+        border-radius: $padding-less;
+        background: white;
+        opacity: 1;
+        box-shadow: -2px 0px $padding-less rgba(0,0,0,0.5);
+        .record-item-img {
+            opacity: 1;
+        }
+        .record-item-name {
+            opacity: 1;
+        }
+        .record-item-artists {
+            opacity: 1;
+        }
+    }
+}

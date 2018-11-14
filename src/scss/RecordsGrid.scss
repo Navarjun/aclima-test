@@ -1,0 +1,23 @@
+@import "./vars.scss";
+
+.records-grid-container {
+    width: auto;
+    padding: $padding-base;
+    padding-left: $padding-double;
+
+    .records-grid {
+        list-style: none;
+        padding: 0px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        .record-item-wrapper {
+            width: 180px;
+            margin-right: $padding-base;
+            margin-bottom: $padding-double;
+            background: white;
+            border-radius: 5px;
+        }
+    }
+}
