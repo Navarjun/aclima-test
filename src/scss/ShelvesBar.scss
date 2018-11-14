@@ -21,23 +21,25 @@
             }
             &:hover, &.potential {
                 background: $color-extra-light;
-                .delete-shelf {
+                .delete-shelf, .rename-shelf {
                     display: inline-block;
                     opacity: 1;
                 }
             }
 
-            .delete-shelf {
+            .delete-shelf, .rename-shelf {
                 float: right;
                 cursor: pointer;
                 display: none;
                 opacity: 0;
                 transition: opacity 0.3s;
                 transition-delay: 0.3s;
+                padding: 3px;
                 &:hover {
                     transform: scale(1.2);
                 }
             }
+
             .shelf-name {
                 font-weight: bold;
                 font-size: 1.3em;

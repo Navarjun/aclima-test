@@ -2,7 +2,7 @@ import React from 'react';
 import RecordItem from './RecordItem';
 import '../scss/RecordsGrid.scss';
 
-class RecordsGrid extends React.PureComponent {
+class RecordsGrid extends React.Component {
     constructor (props) {
         super(props);
 
@@ -16,7 +16,7 @@ class RecordsGrid extends React.PureComponent {
     render () {
         let items = this.props.records.map((record, i) => {
             return <li className="record-item-wrapper" key={i}>
-                <RecordItem data={record} dragEnd={this.props.dragEnd} dragMove={this.props.dragMove}/>
+                <RecordItem removable={this.props.removable} data={record} dragEnd={this.props.dragEnd} dragMove={this.props.dragMove} removeFromList={this.props.removeFromList}/>
             </li>;
         });
 

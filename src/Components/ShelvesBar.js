@@ -51,6 +51,11 @@ class ShelvesBar extends React.PureComponent {
                         e.stopPropagation();
                         this.props.deleteShelf(shelf.id);
                     }}>&#x1f5d1;</span>
+                    <span className="rename-shelf" onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        this.props.renameShelf(shelf);
+                    }}>🖊️</span>
                     <span className="shelf-name">{shelf.name}</span>
                     <span className="shelf-items-count">{shelf.records.length} records</span>
                 </div>

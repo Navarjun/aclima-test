@@ -3,6 +3,23 @@
 .record-item-container {
     padding: $padding-less;
 
+    .remove-button {
+        position: absolute;
+        float: right;
+        color: $color-light;
+        font-size: 0.8em;
+        text-decoration: underline;
+        cursor: pointer;
+        display: none;
+        opacity: 0;
+    }
+    &:hover {
+        .remove-button {
+            display: inline;
+            opacity: 1;
+        }
+    }
+
     .record-item-img {
         width: 100%;
     }
@@ -12,10 +29,27 @@
         font-weight: bold;
         width: 100%;
         display: block;
+        margin-bottom: $padding-less;
     }
     .record-item-artists {
         display: block;
         color: $color-light;
+        margin-bottom: 3px;
+    }
+    .record-item-formats {
+        display: block;
+        color: $color-light;
+        margin-bottom: 3px;
+    }
+    .record-item-labels {
+        display: block;
+        color: $color-light;
+        margin-bottom: 3px;
+    }
+    .record-item-date {
+        display: block;
+        color: $color-light;
+        margin-bottom: 3px;
     }
 
 

@@ -23,12 +23,14 @@ class App extends Component {
         this.addShelf = this.addShelf.bind(this);
         this.getRecords = this.getRecords.bind(this);
         this.search = this.search.bind(this);
+        this.removeFromList = this.removeFromList.bind(this);
+        this.renameShelf = this.renameShelf.bind(this);
         this.getRecords();
     }
 
     getRecords (page = 1) {
         const request = new XMLHttpRequest();
-        request.open('GET', 'https://api.discogs.com/users/blacklight/collection/folders/0/releases?per_page=500&page=' + page, true);
+        request.open('GET', 'https://api.discogs.com/users/blacklight/collection/folders/0/releases?per_page=50&page=' + page, true);
         request.setRequestHeader('Content-Type', 'application/json');
         request.onreadystatechange = () => {
             if (request.readyState === 4 && request.status === 200) {
@@ -40,9 +42,9 @@ class App extends Component {
                         totalPages: response.pagination.pages,
                         records: this.state.records.concat(response.releases)
                     });
-
+                    console.log(response);
                     if (response.pagination.pages !== response.pagination.page) {
-                        this.getRecords(++page);
+                        // this.getRecords(++page);
                     }
                 } catch (e) {
                 }
@@ -92,6 +94,35 @@ class App extends Component {
         });
     }
 
+    removeFromList (record) {
+        if (this.state.selectedShelf !== -1) {
+            const shelves = this.state.shelves;
+            const shelfArr = shelves.filter(s => +s.id === this.state.selectedShelf);
+            if (shelfArr.length > 0) {
+                const shelf = shelfArr[0];
+                let index = shelf.records.indexOf(record);
+                if (index !== -1) {
+                    shelf.records.splice(index, 1);
+                    this.setState({ shelves: shelves });
+                }
+            }
+        }
+    }
+
+    renameShelf (shelf) {
+        if (shelf && this.state.shelves.indexOf(shelf) !== -1) {
+            const index = this.state.shelves.indexOf(shelf);
+            const newName = window.prompt('new shelf name:', shelf.name);
+
+            shelf.name = newName;
+
+            const shelves = this.state.shelves;
+            shelves.splice(index, 1);
+            shelves.splice(index, 0, shelf);
+            this.setState({ shelves });
+        }
+    }
+
     search (records, searchTerm) {
         return records.filter(r => {
             return r.basic_information.title.search(new RegExp(searchTerm, 'i')) !== -1;
@@ -127,7 +158,7 @@ class App extends Component {
                             newState.selectedShelf = -1;
                         }
                         this.setState(newState);
-                    }}></ShelvesBar>
+                    }} renameShelf={this.renameShelf}></ShelvesBar>
                 </div>
                 { this.state.pagesFetched === 0
                     ? <div className="loading-wrapper">
@@ -140,7 +171,7 @@ class App extends Component {
                                 this.setState({ search: e.currentTarget.value });
                             }}></input>
                         </div>
-                        <RecordsGrid dragEnd={this.dragEnd} dragMove={this.dragMove} records={records}></RecordsGrid>
+                        <RecordsGrid dragEnd={this.dragEnd} dragMove={this.dragMove} records={records} removable={+this.state.selectedShelf !== -1} removeFromList={this.removeFromList}></RecordsGrid>
                     </div>
                 }
             </div>

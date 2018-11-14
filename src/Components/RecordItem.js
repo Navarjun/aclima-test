@@ -50,9 +50,7 @@ class RecordItem extends React.Component {
                     width: this.state.dragging.rect.width,
                     height: this.state.dragging.rect.height
                 }} draggable="true">
-                <img className="record-item-img" src={this.props.data.basic_information.cover_image === '' ? '/images/vinyl-default.jpg' : this.props.data.basic_information.cover_image} alt=""></img>
-                <span className="record-item-name">{this.props.data.basic_information.title}</span>
-                <span className="record-item-artists">{this.props.data.basic_information.artists.map(a => a.name).join(',')}</span>
+                <RecordDetails data={this.props.data} removable="false"></RecordDetails>
             </div>;
         }
 
@@ -71,12 +69,25 @@ class RecordItem extends React.Component {
             e.preventDefault();
         }}>
             {dragging}
-            <img className="record-item-img" src={this.props.data.basic_information.cover_image === '' ? '/images/vinyl-default.jpg' : this.props.data.basic_information.cover_image} alt=""></img>
-            <span className="record-item-name">{this.props.data.basic_information.title}</span>
-            <span className="record-item-artists">{this.props.data.basic_information.artists.map(a => a.name).join(',')}</span>
-            <span className="record-item-artists">{this.props.data.basic_information.rating}</span>
+            <RecordDetails removable={this.props.removable} data={this.props.data} removeFromList={this.props.removeFromList}></RecordDetails>
         </div>;
     }
 }
 
 export default RecordItem;
+
+class RecordDetails extends React.PureComponent {
+    render () {
+        return <div>
+            { this.props.removable
+                ? <span className="remove-button" onClick={() => this.props.removeFromList(this.props.data)}>Remove from list</span>
+                : null }
+            <img className="record-item-img" src={this.props.data.basic_information.cover_image === '' ? '/images/vinyl-default.jpg' : this.props.data.basic_information.cover_image} alt=""></img>
+            <span className="record-item-name">{this.props.data.basic_information.title}</span>
+            <span className="record-item-artists">{this.props.data.basic_information.artists.map(a => a.name).join(',')}</span>
+            <span className="record-item-formats">Format: {this.props.data.basic_information.formats.map(a => a.name).join(',')}</span>
+            <span className="record-item-labels">Labels: {this.props.data.basic_information.labels.map(a => a.name).join(',')}</span>
+            <span className="record-item-date">Date:{this.props.data.basic_information.year}</span>
+        </div>;
+    }
+}
