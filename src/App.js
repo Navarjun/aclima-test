@@ -30,7 +30,7 @@ class App extends Component {
 
     getRecords (page = 1) {
         const request = new XMLHttpRequest();
-        request.open('GET', 'https://api.discogs.com/users/blacklight/collection/folders/0/releases?per_page=50&page=' + page, true);
+        request.open('GET', 'https://api.discogs.com/users/blacklight/collection/folders/0/releases?per_page=500&page=' + page, true);
         request.setRequestHeader('Content-Type', 'application/json');
         request.onreadystatechange = () => {
             if (request.readyState === 4 && request.status === 200) {
@@ -42,9 +42,10 @@ class App extends Component {
                         totalPages: response.pagination.pages,
                         records: this.state.records.concat(response.releases)
                     });
-                    console.log(response);
-                    if (response.pagination.pages !== response.pagination.page) {
-                        // this.getRecords(++page);
+
+                    if (response.pagination.pages !== response.pagination.page && page < 4) {
+                        // limiting to only 4 pages for the demo purposes and due to lack of memory management
+                        this.getRecords(++page);
                     }
                 } catch (e) {
                 }
